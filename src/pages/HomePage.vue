@@ -11,7 +11,6 @@ const handlerSubmit = (title, selectedTags) => {
     tags: selectedTags,
   };
   notes.push(note);
-  console.log(note);
 };
 
 const handlerRemove = (index) => {

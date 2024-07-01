@@ -33,7 +33,7 @@ const onSubmit = () => {
                 placeholder="Type ur note"
       />
       <TagsList :items="tags" @onItemClick="handleTagClick" />
-      <button class="btn btnPrimary" type="submit">Add new note</button>
+      <button class="btn btnPrimary" type="submit">Добавить заметку</button>
     </form>
   </div>
 </template>

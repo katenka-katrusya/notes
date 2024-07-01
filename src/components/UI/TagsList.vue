@@ -19,7 +19,6 @@ const props = defineProps({
 const emits = defineEmits(['onItemClick']);
 
 const activeStates = reactive({});
-console.log(activeStates);
 const onItemClick = (item) => {
   if (props.isPreview) {
     return;
