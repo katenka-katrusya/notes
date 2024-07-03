@@ -6,21 +6,21 @@ const emits = defineEmits(['onSubmit']);
 
 const value = ref('');
 const selectedTags = ref([]);
-const tags = ['дом', 'продукты', 'учёба', 'отдых', 'прочее'];
+const tags = ['дом', 'продукты', 'работа', 'отдых', 'прочее'];
 
 const handleTagClick = (tag) => {
-  const tagValue = selectedTags.value;
-
-  if (!tagValue.includes(tag)) {
-    tagValue.push(tag);
+  if (!selectedTags.value.includes(tag)) {
+    selectedTags.value.push(tag);
   } else {
-    selectedTags.value = tagValue.filter((item) => item !== tag);
+    selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   }
+  console.log(selectedTags.value);
 }
 
 const onSubmit = () => {
   emits('onSubmit', value.value, selectedTags.value);
   value.value = '';
+  selectedTags.value = [];
 }
 </script>
 
@@ -28,11 +28,10 @@ const onSubmit = () => {
   <div class="note-form__wrapper">
     <form class="note-form" @submit.prevent="onSubmit">
       <textarea class="note-textarea" required
-                @keydown.enter.prevent="onSubmit"
                 v-model="value"
                 placeholder="Type ur note"
       />
-      <TagsList :items="tags" @onItemClick="handleTagClick" />
+      <TagsList :items="tags" :activeTags="selectedTags" @onItemClick="handleTagClick" />
       <button class="btn btnPrimary" type="submit">Добавить заметку</button>
     </form>
   </div>

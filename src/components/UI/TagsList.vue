@@ -1,14 +1,12 @@
 <script setup>
-import { reactive, ref } from 'vue';
-
 const props = defineProps({
   items: {
     type: Array,
     required: true,
   },
-  isActive: {
-    type: Boolean,
-    default: false,
+  activeTags: {
+    type: Array,
+    default: () => [],
   },
   isPreview: {
     type: Boolean,
@@ -18,23 +16,21 @@ const props = defineProps({
 
 const emits = defineEmits(['onItemClick']);
 
-const activeStates = reactive({});
 const onItemClick = (item) => {
-  if (props.isPreview) {
-    return;
-  }
-  // Переключение состояния активности
-  activeStates[item] = !activeStates[item];
   emits('onItemClick', item);
 };
 
+const isActive = (item) => {
+  return props.activeTags.includes(item);
+}
 </script>
 
 <template>
   <ul class="tags-list">
-    <li class="tag-item" :class="{ isPreview: isPreview, isActive: activeStates[item] }"
+    <li class="tag-item"
         v-for="item in items" :key="item"
         @click="onItemClick(item)"
+        :class="{ isPreview: isPreview, isActive: isActive(item) }"
     >
       <span>{{ item }}</span>
     </li>
